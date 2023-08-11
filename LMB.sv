@@ -6,8 +6,23 @@ module LMB (
   output logic pos );
 
 
-  always_comb
-    begin   
-      while(n>0)
-          y=x>>1;
+            logic [NUM_PORTS-1:0] pos_r;
+            always@(posedge clk, posedge rst)
+                 begin 
+                             if(rst) begin 
+                                         x <= '0;
+                                         pos <= '0;
+                                         end
+                             else if(en) x <= in;
+                             else while(x>0)
+                                         begin 
+                                                x<= x >>1;
+                                                pos=pos+1;
+                                         end 
+                 end 
+
+always_comb
+            if(x==0) pos = pos_r;
+
+endmodule 
       
